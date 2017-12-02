@@ -80,8 +80,9 @@ namespace Pulpobot
             {
                 if (Selection.activeTransform != null)
                 {
-                    List<AudioSource> sources = new List<AudioSource>();
-                    PulpobotUtils.GetAllChildsOfTypeRecursively<AudioSource>(Selection.activeTransform, ref sources);
+                    List<AudioSource> sources = new List<AudioSource>(Selection.GetFiltered<AudioSource>(SelectionMode.Editable));
+                    if(sources.Count == 0)
+                        PulpobotUtils.GetAllChildsOfTypeRecursively<AudioSource>(Selection.activeTransform, ref sources);
                     CreateGroups(sources, mixer, parentGroup);
                     openMixerNextFrame = true;
                 }
